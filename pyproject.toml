@@ -6,9 +6,13 @@ authors = ["Andre Rodrigues <andrelmarques11@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+Scrapy = "^2.5.1"
+invoke = "^1.6.0"
+toml = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+poetry2setup = "^1.0.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

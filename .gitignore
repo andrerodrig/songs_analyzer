@@ -5,3 +5,17 @@
 # Cache
 __pycache__
 *.pyc
+
+# poetry file
+poetry.lock
+
+# Large data files
+data/raw/*.csv
+data/raw/*.json
+data/processed/*.csv
+data/processed/*.json
+
+# build
+build
+dist
+*.egg-info
