@@ -1,7 +1,10 @@
 import scrapy
 import json
 
-links = (link for link in json.load(open('data/external/links.json', 'r')))
+from pathlib import Path
+
+
+links = (link for link in json.load(open(Path('data/external/links.json'), 'r')))
 
 class LyricsSpider(scrapy.Spider):
     name = 'LyricsScrapy'
