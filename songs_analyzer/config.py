@@ -11,7 +11,7 @@ def get_root_path():
     current_path = Path.cwd()
     while current_path.parent != current_path:
         if "pyproject.toml" in os.listdir(current_path):
-            project_info = read_toml("pyproject.toml")["tool"]["poetry"]
+            project_info = read_toml(Path(current_path) / "pyproject.toml")["tool"]["poetry"]
             if project_info.get("name") == "songs_analyzer":
                 return current_path
         else:
