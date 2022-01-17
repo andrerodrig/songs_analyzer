@@ -8,15 +8,17 @@ from spotipy.oauth2 import SpotifyClientCredentials
 
 #data structures
 song = {
-    'track_artist': [],
-    'track_name': [],
-    'track_uri':[]
+    0:[],
+    1:[],
+    2:[],
+    3:[],
+    4:[]
 }
-
+buttons = {}
 
 #credentials
-client_ID=''
-client_SECRET=''
+client_ID='b9d578d1b408480c9ad1ea3790a298a2'
+client_SECRET='c31a76b2807d4503aefff08310af74b9'
 
 #credentials object
 client_credentials_manager = SpotifyClientCredentials(client_id=client_ID, client_secret=client_SECRET)
@@ -31,14 +33,18 @@ data = sp.search(q=user_song, type="track", limit=5)
 
 
 for x in range(5):
-    song['track_artist'].append(data['tracks']['items'][x]['artists'][0]['name'])
-    song['track_name'].append(data['tracks']['items'][x]['name'])
-    song['track_uri'].append(data['tracks']['items'][x]['uri'])
+    song[x].append({
+        data['tracks']['items'][x]['artists'][0]['name'],
+        data['tracks']['items'][x]['name'],
+        data['tracks']['items'][x]['uri']
+        })
+    
+    
 
 
 option = st.radio(
-     "Encontramos as seguintes músicas",('','','','','')
+     "Encontramos as seguintes músicas",(song[0],song[1],song[2],song[3],song[4])
      )
 
 #writes what was found on spotify API
-st.write(song)
+result = st.button('Recomendar')
