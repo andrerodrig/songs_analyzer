@@ -11,8 +11,8 @@ options = []
 album_art = []
 uri = []
 #credentials
-client_ID='b9d578d1b408480c9ad1ea3790a298a2'
-client_SECRET='c31a76b2807d4503aefff08310af74b9'
+client_ID=''
+client_SECRET=''
 
 #credentials object
 client_credentials_manager = SpotifyClientCredentials(client_id=client_ID, client_secret=client_SECRET)
