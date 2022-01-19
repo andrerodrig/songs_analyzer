@@ -7,15 +7,9 @@ import json
 from spotipy.oauth2 import SpotifyClientCredentials
 
 #data structures
-song = {
-    0:[],
-    1:[],
-    2:[],
-    3:[],
-    4:[]
-}
-buttons = {}
-
+options = []
+album_art = []
+uri = []
 #credentials
 client_ID=''
 client_SECRET=''
@@ -27,24 +21,32 @@ sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 #page title
 st.title("Song Recomendator")
 
-#receives data from user and searches on spotify API
-user_song = st.text_input("Digite o título da música")
-data = sp.search(q=user_song, type="track", limit=5)
+try:
+    #receives data from user and searches on spotify API
+    user_song = st.text_input("Digite o título da música")
+    data = sp.search(q=user_song, type="track", limit=5)
+except:
+    pass
 
-
-for x in range(5):
-    song[x].append({
-        data['tracks']['items'][x]['artists'][0]['name'],
-        data['tracks']['items'][x]['name'],
-        data['tracks']['items'][x]['uri']
-        })
-    
-    
+try:
+    for x in range(5):
+        options.append([
+            data['tracks']['items'][x]['artists'][0]['name'],
+            data['tracks']['items'][x]['name']
+        ])
+        album_art.append([
+            data['tracks']['items'][x]['album']['images'][2]['url']
+        ])
+        uri.append([
+            data['tracks']['items'][x]['uri']
+        ])
+except:
+    pass
 
 
 option = st.radio(
-     "Encontramos as seguintes músicas",(song[0],song[1],song[2],song[3],song[4])
+     "Encontramos as seguintes músicas",(options)
      )
-
+#st.write(options)
 #writes what was found on spotify API
 result = st.button('Recomendar')
