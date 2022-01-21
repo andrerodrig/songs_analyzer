@@ -15,6 +15,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 st.set_page_config(
      page_title="Song Recomendator",
      page_icon="🎧",
+<<<<<<< HEAD
+=======
+     layout="wide",
+>>>>>>> 83da4184a1aaeeca3114443a04cf15403f6455b1
      menu_items={
          'Get Help': 'https://github.com/andrerodrig/songs_analyzer',
          'Report a bug': "https://github.com/andrerodrig/songs_analyzer",
@@ -51,6 +55,7 @@ try:
         
         for x in range(5):
             options.append([
+<<<<<<< HEAD
                 #artista, título, arte do album e uri
                 data['tracks']['items'][x]['artists'][0]['name'],
                 data['tracks']['items'][x]['name'],
@@ -59,12 +64,24 @@ try:
             ])
             genre = sp.artist(data['tracks']['items'][x]['artists'][0]['uri'])
             st.write(genre['genres'][0])
+=======
+                data['tracks']['items'][x]['artists'][0]['name'],
+                data['tracks']['items'][x]['name']
+            ])
+            album_art.append([
+                data['tracks']['items'][x]['album']['images'][2]['url']
+            ])
+            uri.append([
+                data['tracks']['items'][x]['uri']
+            ])
+>>>>>>> 83da4184a1aaeeca3114443a04cf15403f6455b1
 
         df = pd.DataFrame(options)
         df = df.rename(columns={0:'artista',1:'título',2:'album_art',3:'uri'})
         st.dataframe(df)
         artist_title = df['artista']+' - '+df['título']
 
+<<<<<<< HEAD
         st.success('Agora selecione sua música 👇')
         option = st.radio(
             "",(artist_title)
@@ -72,3 +89,18 @@ try:
         st.write(option)
 except:
     pass
+=======
+
+        df = pd.DataFrame(options)
+        df = df.rename(columns={0:'artista',1:'título'})
+
+        select = df['artista']+' - '+df['título']
+
+        st.success('Agora selecione sua música 👇')
+        option = st.radio(
+            "",(select)
+            )
+        st.write(option)
+except:
+    pass
+>>>>>>> 83da4184a1aaeeca3114443a04cf15403f6455b1
