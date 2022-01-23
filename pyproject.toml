@@ -15,6 +15,8 @@ sklearn = "^0.0"
 numpy = "^1.22.0"
 nltk = "^3.6.7"
 ipdb = "^0.13.9"
+streamlit = "^1.4.0"
+spotipy = "^2.19.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
