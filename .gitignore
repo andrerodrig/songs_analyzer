@@ -19,3 +19,7 @@ data/processed/*.json
 build
 dist
 *.egg-info
+
+# secrete
+secret.toml
+.cache
