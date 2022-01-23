@@ -11,7 +11,6 @@ sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(**credentials))
 
 def get_tracks_from_playlist(uri):
     results = sp.playlist_tracks(uri, limit=100)
-    print(results.keys())
     tracks = [x["track"] for x in results["items"]]
     while results['next']:
         results = sp.next(results)
@@ -41,3 +40,6 @@ def get_track_geatures(track):
         'duration_ms': track_features['duration_ms'],
         'time_signature': track_features['time_signature'],
     }
+
+def get_songs(keyword):
+    return sp.search(q=keyword, type="track", limit=5)
