@@ -5,7 +5,7 @@ description = ""
 authors = ["Andre Rodrigues <andrelmarques11@gmail.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "~3.8"
 Scrapy = "^2.5.1"
 invoke = "^1.6.0"
 toml = "^0.10.2"
@@ -17,6 +17,9 @@ nltk = "^3.6.7"
 ipdb = "^0.13.9"
 streamlit = "^1.4.0"
 spotipy = "^2.19.0"
+scikit-learn = "^1.0.2"
+jupyterlab = "^3.2.8"
+argostranslate = "^1.6.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

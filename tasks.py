@@ -3,27 +3,19 @@ import json
 
 from invoke import task
 import pandas as pd
-
-# import os
-# import json
-# import pandas as pd
-
-# from invoke import task
-# from pathlib import Path
-# from zipfile import ZipFile
-
-# from songs_analyzer.config import get_root_path
+from argostranslate import package, translate
 
 
-# def unzip_files(path: Path, zipname: str):
-#     with ZipFile(path / zipname, "r") as zip_obj:
-#         zip_obj.extractall(path=path)
+# tradutor
+package.install_from_path('models/translate-pt_en-1_0.argosmodel')
+installed_languages = translate.get_installed_languages()
+pt2en = installed_languages[1].get_translation(to=installed_languages[0])
 
 
 @task
 def data(c):
     folder = Path("data/raw/playlists/new")
-    data_path = Path("data/raw/dataset.csv")
+    data_path = Path("data/processed/data.csv")
     json_data = []
     for file in folder.iterdir():
         with open(file) as json_file:
@@ -31,15 +23,25 @@ def data(c):
         parts = list(file.parts)
         parts[parts.index("new")] = "old"
         file.rename(Path('/'.join(parts)))
+    if not json_data:
+        print("No playlists to add.")
+        return 0
     df_new = (
         pd
         .DataFrame(json_data)
         .drop_duplicates(subset=["uri"])
         .reset_index(drop=True)
     )
+    # translating
+    # print(df_new.genrers)
+    df_new = df_new.assign(
+        genrers=df_new.genrers.apply(lambda x: ' '.join(eval(str(x)) if x else '')),
+        name=df_new.name.apply(lambda x: pt2en.translate(str(x).lower())),
+        artist=df_new.artist.apply(lambda x: str(x).lower()),
+    )
     print(f"Adding {len(df_new)} songs")
-    df_old = pd.read_csv(Path(data_path))
     
+    df_old = pd.read_csv(Path(data_path))
     concatenate_df = (
         pd
         .concat([df_old, df_new])
