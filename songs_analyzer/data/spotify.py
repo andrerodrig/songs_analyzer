@@ -5,10 +5,14 @@ import toml
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
 
-credentials = toml.load(Path("secret.toml"))
+credentials = toml.load(Path(__file__).parents[2] / Path("secret.toml"))
 
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(**credentials))
 
+
+def get_track_by_uri(uri):
+    return sp.track(uri)
+    
 def get_tracks_from_playlist(uri):
     results = sp.playlist_tracks(uri, limit=100)
     tracks = [x["track"] for x in results["items"]]
